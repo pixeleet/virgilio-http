@@ -35,13 +35,13 @@ module.exports = function(options) {
     }
 
     function registerRoute(path, method, handlerObject) {
-        var handler = createHandler(handlerObject);
+        var handler = createHandler(handlerObject, path);
         virgilio.log.info('Registering http endpoint: %s %s', method, path);
         server[method](path, handler);
     }
 
-    function createHandler(handlerObject) {
-        handlerObject = extendHandlerObject(handlerObject);
+    function createHandler(handlerObject, path) {
+        handlerObject = extendHandlerObject(handlerObject, path);
 
         var handler = function(req, res, next) {
             var handlerObject = this;
@@ -64,7 +64,7 @@ module.exports = function(options) {
         return handler;
     }
 
-    function extendHandlerObject(handlerObject) {
+    function extendHandlerObject(handlerObject, path) {
         if (typeof handlerObject === 'string') {
             handlerObject = {
                 handler: handlerObject,
@@ -75,15 +75,29 @@ module.exports = function(options) {
             args = [handler].concat(args);
             return virgilio.execute.apply(virgilio, args);
         };
-        handlerObject.transform = handlerObject.transform || defaultTransform;
+        handlerObject.transform =
+                handlerObject.transform || getDefaultTransform(path);
         handlerObject.respond = handlerObject.respond || defaultRespond;
         handlerObject.error = handlerObject.error || defaultError;
         handlerObject.fallbackError = defaultError;
         return handlerObject;
     }
 
-    function defaultTransform(req) {
-        return req.body;
+    function getDefaultTransform(path) {
+        var elements = path.split('/');
+        var params = [];
+        elements.forEach(function(element) {
+            if (element.charAt(0) === ':') {
+                params.push(element.slice(1));
+            }
+        });
+        return function(req) {
+            var args = params.map(function(param) {
+                return req.params[param];
+            });
+            args.push(req.body);
+            return args;
+        };
     }
 
     function defaultRespond(response, res) {
