@@ -11,7 +11,13 @@ module.exports = function(options) {
         .defineAction('registerMiddleware', registerMiddleware);
 
     virgilio.baseVirgilio$.http = function(routeObject, basePath) {
-        virgilio.execute('registerRoutes', routeObject, basePath);
+        this.execute('http.registerRoutes', routeObject, basePath);
+        return this;
+    };
+
+    virgilio.baseVirgilio$.httpUse = function(middleware, options) {
+        this.execute('http.registerMiddleware', middleware, options);
+        return this;
     };
 
     server.listen(port, function() {
@@ -36,7 +42,8 @@ module.exports = function(options) {
 
     function registerRoute(path, method, handlerObject) {
         var handler = createHandler(handlerObject, path);
-        virgilio.log.info('Registering http endpoint: %s %s', method, path);
+        virgilio.log.info(
+                'Registering http endpoint: %s %s', method.toUpperCase(), path);
         server[method](path, handler);
     }
 
@@ -83,6 +90,12 @@ module.exports = function(options) {
         return handlerObject;
     }
 
+    /**
+     * The default transform function will pass each parameter
+     * in order as an argument to the action, and then add the
+     * body as a last argument. Example:
+     * /someUrl/:foo/:bar -> (params.foo, params.bar, body)
+     */
     function getDefaultTransform(path) {
         var elements = path.split('/');
         var params = [];
@@ -115,7 +128,19 @@ module.exports = function(options) {
         return transformedPath;
     }
 
-    function registerMiddleware(middleware) {
-
+    /**
+     * @param {Function/String} middleware
+     * The middleware to load. Either a function or the name of
+     * bundled restify middleware.
+     * @param {Object} [options]
+     * If `middleware` is bundled restify middleware, this optional
+     * object can be used to configure that middleware.
+     */
+    function registerMiddleware(middleware, options) {
+        if (typeof middleware === 'string') {
+            middleware = restify[middleware](options);
+        }
+        this.log.trace('Adding middleware.');
+        server.use(middleware);
     }
 };
