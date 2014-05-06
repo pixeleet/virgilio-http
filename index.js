@@ -5,6 +5,8 @@ module.exports = function(options) {
     var Promise = virgilio.Promise;
     var server = restify.createServer();
     var httpMethods = ['get', 'post', 'put', 'del', 'head'];
+    var httpOptions = options.http || {};
+    var authRoutes = httpOptions.authRoutes || {};
 
     virgilio = virgilio.namespace('http')
         .defineAction('registerRoutes', registerRoutes)
@@ -25,7 +27,7 @@ module.exports = function(options) {
     });
 
     function registerRoutes(routeObject, basePath) {
-        basePath = sanitizePath(basePath || '/');
+        basePath = sanitizePath(basePath || '');
         var routes = Object.keys(routeObject);
         routes.forEach(function(key) {
             var route = routeObject[key];
@@ -53,6 +55,7 @@ module.exports = function(options) {
         var handler = function(req, res, next) {
             var handlerObject = this;
             Promise.cast(req)
+                .then(handlerObject.auth)
                 .then(handlerObject.transform)
                 .then(handlerObject.handler)
                 .then(function(response) {
@@ -67,6 +70,8 @@ module.exports = function(options) {
                     return handlerObject.error(error, res);
                 }).done();
         }.bind(handlerObject);
+
+        handler = addAuthToHandler(handler, path);
 
         return handler;
     }
@@ -122,9 +127,33 @@ module.exports = function(options) {
         res.send(500, 'An error occured');
     }
 
+    function addAuthToHandler(handler, path) {
+        var roles = authRoutes[path];
+        if (!roles) {
+            return handler;
+        }
+        var authHandler = function(req, res, next) {
+            var sessionId = req.headers['session-id'];
+            if (!sessionId) {
+                return res.send(403, 'Not logged in.');
+            }
+            return virgilio.execute('auth.checkRoles', sessionId, roles)
+                .then(function(response) {
+                    if (response.result) {
+                        next();
+                    }
+                    else {
+                        res.send(403, response.reason);
+                    }
+                })
+                .catch(defaultError)
+                .done();
+        };
+        return [authHandler, handler];
+    }
+
     function sanitizePath(path) {
-        //Transform basePath to have one ending and no leading '/'.
-        var transformedPath = path.replace(/\/?([^\/]+)\/?/, '$1/');
+        var transformedPath = path.replace(/^\/?(.+)\/?$/, '/$1');
         return transformedPath;
     }
 
@@ -139,6 +168,9 @@ module.exports = function(options) {
     function registerMiddleware(middleware, options) {
         if (typeof middleware === 'string') {
             middleware = restify[middleware](options);
+        }
+        else {
+            middleware = middleware.bind(virgilio);
         }
         this.log.trace('Adding middleware.');
         server.use(middleware);
