@@ -83,3 +83,24 @@ Use a certain middleware.
 `middleware` can be a function with a standard `(req, res, next)` signature.
 Alternatively, you can provide the name of one of restify's built-in middlewares (for instance: `bodyParser`).
 In that case, you can also pass an optional `options` object, which is passed directly to that middlewares constructor.
+
+## Options
+Virgilio-http supports the following options:
+
+    var options = {
+        http: {
+            port: 8080,
+            authRoutes: {}
+        }
+    }
+
+### port (default: 8080)
+The port Virgilio-http listens on.
+
+### authRoutes (default: {})
+A map of routes, where each key is a path that exactly matches the path provided to `virgilio.http()`.
+This will require an authentication extension to be loaded to work.
+All routes in this map require authentication to access.
+Calls to these routes need to pass a sessionId in a `session-id` header.
+Virgilio-http will call `auth.checkSession` with this sessionId and the value of this route in the authRoutes map.
+The authentication module can use this to determine whether the user has access to this particular route.

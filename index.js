@@ -1,10 +1,10 @@
 var restify = require('restify');
-module.exports = function(options) {
+module.exports = function virgilioHttp(options) {
     var virgilio = this;
     var port = (options.http && options.http.port) || '8080';
     var Promise = virgilio.Promise;
     var server = restify.createServer();
-    var httpMethods = ['get', 'post', 'put', 'del', 'head'];
+    var httpMethods = ['get', 'post', 'put', 'del', 'head', 'opts', 'patch'];
     var httpOptions = options.http || {};
     var authRoutes = httpOptions.authRoutes || {};
 
@@ -31,8 +31,8 @@ module.exports = function(options) {
         var routes = Object.keys(routeObject);
         routes.forEach(function(key) {
             var route = routeObject[key];
-            key = key.toLowerCase();
-            if (httpMethods.indexOf(key) >= 0) {
+            if (httpMethods.indexOf(key.toLowerCase()) >= 0) {
+                key = key.toLowerCase();
                 registerRoute(basePath, key, route);
             }
             else {
@@ -55,7 +55,6 @@ module.exports = function(options) {
         var handler = function(req, res, next) {
             var handlerObject = this;
             Promise.cast(req)
-                .then(handlerObject.auth)
                 .then(handlerObject.transform)
                 .then(handlerObject.handler)
                 .then(function(response) {
@@ -128,16 +127,18 @@ module.exports = function(options) {
     }
 
     function addAuthToHandler(handler, path) {
-        var roles = authRoutes[path];
-        if (!roles) {
+        var authRouteInfo = authRoutes[path];
+        if (!authRouteInfo) {
             return handler;
         }
+        virgilio.log.trace('Adding authentication to route: %s', path);
         var authHandler = function(req, res, next) {
             var sessionId = req.headers['session-id'];
             if (!sessionId) {
                 return res.send(403, 'Not logged in.');
             }
-            return virgilio.execute('auth.checkRoles', sessionId, roles)
+            return virgilio.execute(
+                        'auth.checkSession', sessionId, authRouteInfo)
                 .then(function(response) {
                     if (response.result) {
                         next();
