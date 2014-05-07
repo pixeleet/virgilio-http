@@ -44,15 +44,23 @@ module.exports = function virgilioHttp(options) {
 
     function registerRoute(path, method, handlerObject) {
         var handler = createHandler(handlerObject, path);
-        virgilio.log.info(
-                'Registering http endpoint: %s %s', method.toUpperCase(), path);
+        var authRouteInfo = authRoutes[path];
+        if (authRouteInfo) {
+            var authHandler = createAuthHandler(authRouteInfo);
+            handler = [authHandler, handler];
+            virgilio.log.info('registering authenticated http endpoint: %s %s',
+                    method.toUpperCase(), path);
+        }
+        else {
+            virgilio.log.info('registering http endpoint: %s %s',
+                    method.toUpperCase(), path);
+        }
         server[method](path, handler);
     }
 
     function createHandler(handlerObject, path) {
         handlerObject = extendHandlerObject(handlerObject, path);
-
-        var handler = function(req, res, next) {
+        return function(req, res, next) {
             var handlerObject = this;
             Promise.cast(req)
                 .then(handlerObject.transform)
@@ -69,10 +77,6 @@ module.exports = function virgilioHttp(options) {
                     return handlerObject.error(error, res);
                 }).done();
         }.bind(handlerObject);
-
-        handler = addAuthToHandler(handler, path);
-
-        return handler;
     }
 
     function extendHandlerObject(handlerObject, path) {
@@ -105,9 +109,9 @@ module.exports = function virgilioHttp(options) {
         var params = [];
         elements.forEach(function(element) {
             if (element.charAt(0) === ':') {
-                params.push(element.slice(1));
+                this.push(element.slice(1));
             }
-        });
+        }, params);
         return function(req) {
             var args = params.map(function(param) {
                 return req.params[param];
@@ -126,13 +130,8 @@ module.exports = function virgilioHttp(options) {
         res.send(500, 'An error occured');
     }
 
-    function addAuthToHandler(handler, path) {
-        var authRouteInfo = authRoutes[path];
-        if (!authRouteInfo) {
-            return handler;
-        }
-        virgilio.log.trace('Adding authentication to route: %s', path);
-        var authHandler = function(req, res, next) {
+    function createAuthHandler(authRouteInfo) {
+        return function(req, res, next) {
             var sessionId = req.headers['session-id'];
             if (!sessionId) {
                 return res.send(403, 'Not logged in.');
@@ -150,7 +149,6 @@ module.exports = function virgilioHttp(options) {
                 .catch(defaultError)
                 .done();
         };
-        return [authHandler, handler];
     }
 
     function sanitizePath(path) {

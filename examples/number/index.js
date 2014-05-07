@@ -3,6 +3,11 @@ var options = {
         authRoutes: {
             '/number/someNumber': 'user-session'
         }
+    },
+    //Disable logging (it's annoying when testing).
+    logger: {
+        name: 'virgilio',
+        streams: []
     }
 };
 module.exports = require('virgilio')(options)
