@@ -1,12 +1,13 @@
 var restify = require('restify');
 module.exports = function virgilioHttp(options) {
     var virgilio = this;
-    var port = (options.http && options.http.port) || '8080';
-    var Promise = virgilio.Promise;
-    var server = restify.createServer();
-    var httpMethods = ['get', 'post', 'put', 'del', 'head', 'opts', 'patch'];
     var httpOptions = options.http || {};
+    var port = httpOptions.port || '8080';
+    var restifyOptions = httpOptions.restify || {};
     var authRoutes = httpOptions.authRoutes || {};
+    var Promise = virgilio.Promise;
+    var server = restify.createServer(restifyOptions);
+    var httpMethods = ['get', 'post', 'put', 'del', 'head', 'opts', 'patch'];
 
     virgilio = virgilio.namespace('http')
         .defineAction('registerRoutes', registerRoutes)

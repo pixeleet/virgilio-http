@@ -90,12 +90,16 @@ Virgilio-http supports the following options:
     var options = {
         http: {
             port: 8080,
+            restify: {},
             authRoutes: {}
         }
     }
 
 ### port (default: 8080)
 The port Virgilio-http listens on.
+
+### restify (default: {})
+Options to pass to restify.createServer().
 
 ### authRoutes (default: {})
 A map of routes, where each key is a path that exactly matches the path provided to `virgilio.http()`.
