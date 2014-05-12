@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "grunt": "^0.4.4",
+    "grunt-docco": "^0.3.3",
     "grunt-mocha-test": "^0.10.2",
     "mocha": "^1.18.2",
     "must": "^0.11.0",
