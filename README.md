@@ -1,4 +1,6 @@
 # Virgilio-http
+[![Stories in Ready](https://badge.waffle.io/icemobilelab/virgilio-http.png?label=ready&title=Ready)](https://waffle.io/icemobilelab/virgilio-http)
+
 A restify-based virgilio-extension, for making actions available as http-endpoints.
 
 ## Getting started
