@@ -4,7 +4,7 @@
   "description": "An http module for Virgilio",
   "main": "index.js",
   "scripts": {
-    "test": "grunt test"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",
