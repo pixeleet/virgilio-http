@@ -12,30 +12,31 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-module.exports = function(grunt) {
-    grunt.initConfig({
-        mochaTest: {
-            test: {
-                options: {
-                    reporter: 'spec',
-                    require: 'must'
-                },
-                src: ['./examples/**/*.test.js']
+module.exports = function(options) {
+    var virgilio = this;
+    var Promise = virgilio.Promise;
+
+    virgilio
+        .defineAction('getRecord', getRecord);
+
+    virgilio.http({
+        '/getRecord': {
+            GET: {
+                handler: 'getRecord',
+                timeout: 100
             }
         },
-        docco: {
-            docs: {
-                src: ['./lib/virgilio-http.js'],
-                options: {
-                    output: 'docs/'
-                }
+        '/getRecordSlowly': {
+            GET: {
+                handler: 'getRecord',
+                timeout: 300
             }
         }
     });
 
-    grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-docco');
-
-    grunt.registerTask('test', 'mochaTest');
-    grunt.registerTask('docs', 'docco');
+    function getRecord() {
+        return new Promise(function(resolve) {
+            setTimeout(resolve, 200, 'data');
+        });
+    }
 };

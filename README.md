@@ -79,6 +79,10 @@ Like the respond method, but called when an error is thrown while handling an in
 
 The default error function does a `res.send(500, 'An error occured')`.
 
+#### timeout
+The timeout (in ms) determines the maximum amount of time a request should take.
+If a request takes longer, an error is thrown.
+
 
 ### virgilio.httpUse( middleware [, options] )
 Use a certain middleware.
