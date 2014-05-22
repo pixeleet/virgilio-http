@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /* global describe, it*/
-var virgilio = require('../');
+var virgilio = require('./');
 var request = require('supertest');
 var url = 'http://localhost:8080';
 
@@ -44,6 +44,22 @@ describe('number tests', function() {
             .get('/number/subtract/9/5')
             .set('foo', 'bar')
             .expect(242, done);
+    });
+    it('publishes a message when a new route is added', function(done) {
+        virgilio.subscribe('http.newRoute', function(path) {
+            var error = null;
+            try {
+                path.must.equal('/foo');
+            } catch(err) {
+                error = err;
+            }
+            done(error);
+        });
+        virgilio.http({
+            '/foo': {
+                GET: 'do.something'
+            }
+        });
     });
     describe('authenticated endpoints', function() {
         it('refuse access when the session is invalid', function(done) {
