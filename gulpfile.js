@@ -3,6 +3,7 @@ var mocha = require('gulp-mocha');
 var docco = require('gulp-docco');
 var jshint = require('gulp-jshint');
 var istanbul = require('gulp-istanbul');
+var exit = require('gulp-exit');
 
 // Help module
 require('gulp-help')(gulp);
@@ -13,7 +14,8 @@ gulp.task('test', 'Run the application tests', function () {
     gulp.src(['./examples/**/*.test.js', './tests/**/*.test.js'])
         .pipe(mocha({
             reporter: 'spec'
-        }));
+        }))
+        .pipe(exit());
 });
 
 gulp.task('coverage', 'Create istanbul code coverage report form tests',
@@ -36,7 +38,7 @@ gulp.task('docs', 'Build the documentation', function () {
 });
 
 gulp.task('lint', 'Execute JSHint checks on the code', function () {
-    gulp.src(['lib/*.js'])
+    gulp.src(['lib/**/*.js', 'examples/**/*.js'])
         .pipe(jshint('.jshintrc'))
         .pipe(jshint.reporter('jshint-stylish'));
 });
