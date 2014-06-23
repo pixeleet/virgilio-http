@@ -12,8 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/* global describe, it*/
-var virgilio = require('./');
+/* global describe, it */
+//Load the virgilio instance.
+require('./');
 var request = require('supertest');
 var url = 'http://localhost:8081';
 
@@ -22,7 +23,7 @@ describe('slowdb tests', function() {
         request(url)
             .get('/getRecord')
             .expect(500)
-            .end(function(err, response) {
+            .end(function(err) {
                 done(err);
             });
     });
@@ -30,7 +31,7 @@ describe('slowdb tests', function() {
         request(url)
             .get('/getRecordSlowly')
             .expect(200)
-            .end(function(err, response) {
+            .end(function(err) {
                 done(err);
             });
     });
