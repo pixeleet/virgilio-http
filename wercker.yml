@@ -8,3 +8,26 @@ build:
 
     - npm-install
     - npm-test
+deploy:
+  steps:
+    - script:
+        name: setup npmrc
+        code: echo "_auth = $NPM_KEY" >> ~/.npmrc; echo "email = $NPM_EMAIL" >> ~/.npmrc
+    - script:
+        name: npm publish
+        code: npm publish
+  after-steps:
+    - hipchat-notify:
+        token: $HIPCHAT_TOKEN
+        room-id: $HIPCHAT_ROOM_ID
+        from-name: $HIPCHAT_FROM
+    - npm-install
+    - script:
+        name: install gulp globally
+        code: sudo npm install -g gulp
+    - script:
+        name: check code coverage
+        code: |-
+            gulp coverage
+            sudo npm install -g codeclimate-test-reporter
+            codeclimate < coverage/lcov.info
