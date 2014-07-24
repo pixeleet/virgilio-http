@@ -16,7 +16,8 @@ var options = {
     http: {
         authRoutes: {
             '/number/someNumber': 'user-session'
-        }
+        },
+        port: 9997
     },
     //Disable logging (it's annoying when testing).
     logger: {

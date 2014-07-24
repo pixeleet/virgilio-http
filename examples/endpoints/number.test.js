@@ -15,7 +15,7 @@
 /* global describe, it */
 var virgilio = require('./');
 var request = require('supertest');
-var url = 'http://localhost:8080';
+var url = 'http://localhost:9997';
 
 describe('number tests', function() {
     it('handles requests', function(done) {

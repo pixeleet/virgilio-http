@@ -16,7 +16,7 @@
 //Load the virgilio instance.
 require('./');
 var request = require('supertest');
-var url = 'http://localhost:8081';
+var url = 'http://localhost:9998';
 
 describe('slowdb tests', function() {
     it('returns a 500 if the request times out', function(done) {
