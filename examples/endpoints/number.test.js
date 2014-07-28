@@ -78,12 +78,8 @@ describe('number tests', function() {
     describe('Error handling', function() {
         it('handle correctly custom errors', function(done) {
             request(url)
-                .get('/trigger/error')
+                .get('/number/trigger/error')
                 .expect(418, done);
-        });
-
-        it('', function(done) {
-            
         });
     });
 });

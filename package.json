@@ -23,7 +23,8 @@
   "homepage": "https://github.com/icemobilelab/virgilio-http",
   "dependencies": {
     "restify": "^2.7.0",
-    "tv4": "~1.1.0"
+    "tv4": "~1.1.0",
+    "string": "~1.9.0"
   },
   "devDependencies": {
     "gulp": "^3.6.2",

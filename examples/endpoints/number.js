@@ -17,10 +17,16 @@ module.exports = function() {
     virgilio.namespace('number')
         .defineAction('add', add)
         .defineAction('subtract', subtract)
-        .defineAction('someNumber', someNumber);
+        .defineAction('someNumber', someNumber)
+        .defineAction('trigger.error', function() {
+            throw new virgilio.TestError('I\'m a tea pot');
+        })
+        .defineAction('error.default', function() {
+            throw new Error('I love my tea pot');
+        });
 
     virgilio.registerError$({
-        type: 'TestError',
+        name: 'TestError',
         init: function(error) {
             this.errorMessage = error.message;
         }
@@ -60,24 +66,24 @@ module.exports = function() {
                 }
             },
             '/subtract/:num1/:num2': {
-                GET: 'number.subtract',
-                errors: {
-                    test: function(error, res) {
-                        res.send(418, error.message);
-                    }
-                }
+                GET: 'number.subtract'
             },
             '/someNumber': {
                 GET: 'number.someNumber'
             },
             '/trigger/error': {
-                GET: function() {
-                    throw new virgilio.TestError('I\'m a tea pot');
+                GET: {
+                    handler: 'number.trigger.error',
+                    errors: {
+                        test: function(error, res) {
+                            res.send(418, error.message);
+                        }
+                    }
                 }
             },
             '/error/default': {
-                GET: function() {
-                    throw new Error('I love my tea pot');
+                GET: {
+                    handler: 'number.error.default'
                 }
             }
         }
