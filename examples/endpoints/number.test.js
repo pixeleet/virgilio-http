@@ -74,4 +74,16 @@ describe('number tests', function() {
                 .expect(200, done);
         });
     });
+
+    describe('Error handling', function() {
+        it('handle correctly custom errors', function(done) {
+            request(url)
+                .get('/trigger/error')
+                .expect(418, done);
+        });
+
+        it('', function(done) {
+            
+        });
+    });
 });

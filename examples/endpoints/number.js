@@ -19,6 +19,13 @@ module.exports = function() {
         .defineAction('subtract', subtract)
         .defineAction('someNumber', someNumber);
 
+    virgilio.registerError$({
+        type: 'TestError',
+        init: function(error) {
+            this.errorMessage = error.message;
+        }
+    });
+
     function add(num1, num2) {
         num1 = parseInt(num1, 10);
         num2 = parseInt(num2, 10);
@@ -47,16 +54,31 @@ module.exports = function() {
                         var answer = 'The answer is: ' + result;
                         res.send(200, answer);
                     },
-                    error: function(err, res) {
+                    errors: function(err, res) {
                         res.send(500, err.message);
                     }
                 }
             },
             '/subtract/:num1/:num2': {
-                GET: 'number.subtract'
+                GET: 'number.subtract',
+                errors: {
+                    test: function(error, res) {
+                        res.send(418, error.message);
+                    }
+                }
             },
             '/someNumber': {
                 GET: 'number.someNumber'
+            },
+            '/trigger/error': {
+                GET: function() {
+                    throw new virgilio.TestError('I\'m a tea pot');
+                }
+            },
+            '/error/default': {
+                GET: function() {
+                    throw new Error('I love my tea pot');
+                }
             }
         }
     });
