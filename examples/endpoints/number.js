@@ -17,7 +17,9 @@ module.exports = function() {
     virgilio.namespace('number')
         .defineAction('add', add)
         .defineAction('subtract', subtract)
-        .defineAction('someNumber', someNumber);
+        .namespace('some')
+            .defineAction('read', readSomeNumber)
+            .defineAction('change', changeSomeNumber);
 
     function add(num1, num2) {
         num1 = parseInt(num1, 10);
@@ -30,9 +32,16 @@ module.exports = function() {
         return virgilio.execute('number.add', num1, -num2);
     }
 
-    function someNumber() {
-        return 42;
+    var someNumber = 42;
+    function readSomeNumber() {
+        return someNumber;
     }
+
+    function changeSomeNumber(newNumber) {
+        someNumber = newNumber;
+    }
+
+
 
     virgilio.http({
         '/number': {
@@ -56,7 +65,14 @@ module.exports = function() {
                 GET: 'number.subtract'
             },
             '/someNumber': {
-                GET: 'number.someNumber'
+                GET: 'number.some.read',
+                POST: {
+                    handler: 'number.some.change',
+                    transform: function(req) {
+                        var number = parseInt(req.body, 10);
+                        return [number];
+                    }
+                }
             }
         }
     });

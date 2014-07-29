@@ -15,7 +15,8 @@
 var options = {
     http: {
         authRoutes: {
-            '/number/someNumber': 'user-session'
+            '/number/someNumber': 'user-session-1',
+            'POST:/number/someNumber': 'user-session-2'
         },
         port: 9997
     },
