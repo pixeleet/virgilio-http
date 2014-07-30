@@ -70,7 +70,23 @@ describe('number tests', function() {
         it('allow access when the session is valid', function(done) {
             request(url)
                 .get('/number/someNumber')
-                .set('session-id', 'user-session')
+                .set('session-id', 'user-session-1')
+                .expect(200, done);
+        });
+    });
+    describe('authenticated endpoint methods', function() {
+        it('refuse access when the session is invalid', function(done) {
+            request(url)
+                .post('/number/someNumber')
+                .set('session-id', 'user-session-1')
+                .send('5')
+                .expect(403, done);
+        });
+        it('allow access when the session is valid', function(done) {
+            request(url)
+                .post('/number/someNumber')
+                .set('session-id', 'user-session-2')
+                .send('5')
                 .expect(200, done);
         });
     });
