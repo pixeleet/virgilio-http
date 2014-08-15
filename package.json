@@ -1,6 +1,6 @@
 {
   "name": "virgilio-http",
-  "version": "0.6.6",
+  "version": "0.6.7",
   "description": "An http module for Virgilio",
   "main": "index.js",
   "scripts": {
