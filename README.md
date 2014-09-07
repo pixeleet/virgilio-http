@@ -1,5 +1,7 @@
 # Virgilio-http
-[![Stories in Ready](https://badge.waffle.io/icemobilelab/virgilio-http.png?label=ready&title=Ready)](https://waffle.io/icemobilelab/virgilio-http) [![wercker status](https://app.wercker.com/status/028d516f144b22cc1426d1273054cf6b/s "wercker status")](https://app.wercker.com/project/bykey/028d516f144b22cc1426d1273054cf6b)
+[![Stories in Ready](https://badge.waffle.io/icemobilelab/virgilio-http.png?label=ready&title=Ready)](https://waffle.io/icemobilelab/virgilio-http)
+[![wercker status](https://app.wercker.com/status/028d516f144b22cc1426d1273054cf6b/s "wercker status")](https://app.wercker.com/project/bykey/028d516f144b22cc1426d1273054cf6b)
+[![NPM version](https://badge.fury.io/js/virgilio-http.svg)](http://badge.fury.io/js/virgilio-http)
 
 A restify-based virgilio-extension, for making actions available as http-endpoints.
 
