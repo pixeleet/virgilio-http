@@ -7,15 +7,8 @@ var options = {
 var virgilio = new Virgilio(options);
 virgilio.loadModule$(require('./lib/virgilio-http'));
 
-virgilio.defineAction$('foo.bar', function(string) {
-    console.log(arguments);
-    return string + '!';
+virgilio.defineAction$('foo.bar', function(string1, string2) {
+    return string1 + ' ' + string2;
 });
 
-virgilio.foo.bar.get('/foo/:string')
-    .transform(function(req, res) {
-        return this.execute$(req.params.string)
-            .then(function(result) {
-                res.send(200, result);
-            });
-    });
+virgilio.foo.bar.get('/foo/:string1/:string2');
