@@ -1,11 +1,6 @@
 box: wercker/nodejs
 build:
   steps:
-    - script:
-        name: Install grunt
-        code: |
-          sudo npm install -g grunt-cli
-
     - npm-install
     - npm-test
 deploy:
@@ -17,10 +12,6 @@ deploy:
         name: npm publish
         code: npm publish
   after-steps:
-    - hipchat-notify:
-        token: $HIPCHAT_TOKEN
-        room-id: $HIPCHAT_ROOM_ID
-        from-name: $HIPCHAT_FROM
     - npm-install
     - script:
         name: install gulp globally

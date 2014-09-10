@@ -1,31 +1,32 @@
 {
-  "name": "virgilio-http",
-  "version": "0.6.7",
-  "description": "An http module for Virgilio",
-  "main": "lib/virgilio-http.js",
+  "name": "concordia-http",
+  "version": "0.7.0",
+  "description": "An http module for Concordia",
+  "main": "lib/concordia-http.js",
   "scripts": {
     "test": "gulp test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/icemobilelab/virgilio-http.git"
+    "url": "git://github.com/concordiajs/concordia-http.git"
   },
-  "author": "Icemobile BV",
+  "author": "Concordia",
   "licenses": [
     {
       "type": "Apache-2.0",
-      "url": "http://github.com/icemobilelab/virgilio-http/raw/master/LICENSE"
+      "url": "http://github.com/concordiajs/concordia-http/raw/master/LICENSE"
     }
   ],
   "bugs": {
-    "url": "https://github.com/icemobilelab/virgilio-http/issues"
+    "url": "https://github.com/concordiajs/concordia-http/issues"
   },
-  "homepage": "https://github.com/icemobilelab/virgilio-http",
+  "homepage": "https://github.com/concordiajs/concordia-http",
   "dependencies": {
     "restify": "^2.8.2",
     "underscore": "^1.7.0"
   },
   "devDependencies": {
+    "concordia": "^0.7.1",
     "gulp": "^3.6.2",
     "gulp-docco": "0.0.4",
     "gulp-exit": "0.0.2",
@@ -36,7 +37,6 @@
     "jshint-stylish": "^0.2.0",
     "mocha": "^1.18.2",
     "must": "^0.11.0",
-    "supertest": "^0.12.0",
-    "virgilio": "git+ssh://git@github.com:jwoudenberg/virgilio.git"
+    "supertest": "^0.12.0"
   }
 }

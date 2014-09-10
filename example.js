@@ -1,14 +1,14 @@
-var Virgilio = require('virgilio');
+var Concordia = require('concordia');
 var options = {
     http: {
         port: 8080
     }
 };
-var virgilio = new Virgilio(options);
-virgilio.loadModule$(require('./lib/virgilio-http'));
+var concordia = new Concordia(options);
+concordia.loadModule$(require('./lib/concordia-http'));
 
-virgilio.defineAction$('foo.bar', function(string1, string2) {
+concordia.defineAction$('foo.bar', function(string1, string2) {
     return string1 + ' ' + string2;
 });
 
-virgilio.foo.bar.get('/foo/:string1/:string2');
+concordia.foo.bar.get('/foo/:string1/:string2');

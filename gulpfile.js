@@ -32,7 +32,7 @@ gulp.task('coverage', 'Create istanbul code coverage report form tests',
 });
 
 gulp.task('docs', 'Build the documentation', function () {
-    gulp.src(['lib/virgilio-http.js'])
+    gulp.src(['lib/concordia-http.js'])
         .pipe(docco())
         .pipe(gulp.dest('./docs'));
 });
