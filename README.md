@@ -28,9 +28,10 @@ And that's it!
 By default, an action gets called with the parameters in the url followed by the
 request body as arguments. The response of the action will be returned with a
 200 status code. If you want different behaviour, you can define your own
-transform (this example requires the `bodyParser` middleware):
+transform:
 
 ```javascript
+//This example requires the `bodyParser` middleware.
 concordia.foo.post('/add')
     .transform(function(req, res) {
         var body = req.body;
