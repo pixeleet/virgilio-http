@@ -11,7 +11,7 @@ Easily add http-endpoints to your concordia-actions. Based on the excellent
 
 Lets suppose we created a concordia action `foo`:
 
-```js
+```javascript
 concordia.defineAction$('add', function(num1, num2) {
     return num1 + num2;
 })
@@ -19,7 +19,7 @@ concordia.defineAction$('add', function(num1, num2) {
 
 Let's make this action available over HTTP:
 
-```js
+```javascript
 concordia.foo.get('/add/:number1/:number2');
 ```
 
@@ -30,7 +30,7 @@ request body as arguments. The response of the action will be returned with a
 200 status code. If you want different behaviour, you can define your own
 transform (this example requires the `bodyParser` middleware):
 
-```js
+```javascript
 concordia.foo.post('/add')
     .transform(function(req, res) {
         var body = req.body;
@@ -48,7 +48,7 @@ middleware.
 
 Now suppose you want to add some validation to this route. Easy:
 
-```js
+```javascript
 concordia.foo.get('/add/:number1/:number2')
     .addHandler(myValidationMiddleware(schema))
     .addHandler(myAuthenticationMiddleware())
@@ -63,7 +63,7 @@ that position.
 Of course, it's also possible to add generic middleware to be used with every
 route:
 
-```js
+```javascript
 concordia.http.use(concordia.http.bodyParser());
 ```
 
