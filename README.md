@@ -1,5 +1,6 @@
 # Concordia-http
 [![NPM version](https://badge.fury.io/js/concordia-http.svg)](http://badge.fury.io/js/concordia-http)
+[![Dependency Status](https://gemnasium.com/ConcordiaJS/concordia-http.svg)](https://gemnasium.com/ConcordiaJS/concordia-http)
 
 NOTE: THIS IS STILL A WORK IN PROGRESS. NOT ALL FEATURES MIGHT WORK YET.
 
