@@ -9,18 +9,18 @@ Easily add http-endpoints to your concordia-actions. Based on the excellent
 
 ## Usage
 
-Lets suppose we created a concordia action `foo`:
+Lets suppose we created a concordia action `allcaps`:
 
 ```javascript
-concordia.defineAction$('add', function(num1, num2) {
-    return num1 + num2;
+concordia.defineAction$('allcaps', function(word) {
+    return word.toUpperCase() + '!';
 })
 ```
 
 Let's make this action available over HTTP:
 
 ```javascript
-concordia.add.get('/add/:number1/:number2');
+concordia.allcaps.get('/allcaps/concordia');
 ```
 
 And that's it!
@@ -32,10 +32,10 @@ transform:
 
 ```javascript
 //This example requires the `bodyParser` middleware.
-concordia.add.post('/add')
+concordia.add.post('/allcaps')
     .transform(function(req, res) {
-        var body = req.body;
-        return this.execute$(body.number1, body.number2)
+        var words = req.body;
+        return this.execute$(words.join(' '))
             .then(function(result) {
                 res.send(200, { answer: result });
             });
@@ -50,7 +50,7 @@ middleware.
 Now suppose you want to add some validation to this route. Easy:
 
 ```javascript
-concordia.add.get('/add/:number1/:number2')
+concordia.add.get('/allcaps/:words')
     .addHandler(myValidationMiddleware(schema))
     .addHandler(myAuthenticationMiddleware())
     .transform();
