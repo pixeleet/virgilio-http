@@ -27,16 +27,22 @@
   },
   "devDependencies": {
     "concordia": "^0.7.1",
-    "gulp": "^3.6.2",
+    "gulp": "^3.8.7",
     "gulp-docco": "0.0.4",
-    "gulp-exit": "0.0.2",
+    "gulp-example-to-test": "^0.1.0",
     "gulp-help": "^0.1.7",
+    "gulp-insert": "^0.4.0",
     "gulp-istanbul": "^0.2.0",
     "gulp-jshint": "^1.6.3",
     "gulp-mocha": "^0.4.1",
+    "gulp-replace": "^0.4.0",
+    "gulp-rimraf": "^0.1.0",
+    "gulp-util": "^3.0.1",
     "jshint-stylish": "^0.2.0",
     "mocha": "^1.18.2",
     "must": "^0.11.0",
+    "request": "^2.42.0",
+    "run-sequence": "^0.3.6",
     "supertest": "^0.12.0"
   }
 }
