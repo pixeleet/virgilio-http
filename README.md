@@ -37,7 +37,7 @@ concordia.add.post('/allcaps')
         var words = req.body;
         return this.execute$(words.join(' '))
             .then(function(result) {
-                res.send(200, { answer: result });
+                res.send(200, { scream: result });
             });
     });
 ```
