@@ -1,6 +1,6 @@
 # Concordia-http
 [![NPM version](https://badge.fury.io/js/concordia-http.svg)](http://badge.fury.io/js/concordia-http)
-[![Dependency Status](https://gemnasium.com/ConcordiaJS/concordia-http.svg)](https://gemnasium.com/ConcordiaJS/concordia-http)
+[![Gitter chat](https://badges.gitter.im/ConcordiaJS/concordia-http.png)](https://gitter.im/ConcordiaJS/concordia-http)
 
 NOTE: THIS IS STILL A WORK IN PROGRESS. NOT ALL FEATURES MIGHT WORK YET.
 
@@ -8,7 +8,7 @@ A restify-based concordia-extension, for making actions available as HTTP-endpoi
 Easily add http-endpoints to your concordia-actions. Based on the excellent
 [restify](http://mcavage.me/node-restify/).
 
-# Usage
+## Usage
 
 Lets suppose we created a concordia action `foo`:
 
@@ -71,3 +71,6 @@ concordia.http.use(concordia.http.bodyParser());
 
 Restify's bundled middlewares are made available from `concordia.http`. It is
 advised extensions that add additional middlewares also store them there.
+
+## More Tags
+[![Dependency Status](https://gemnasium.com/ConcordiaJS/concordia-http.svg)](https://gemnasium.com/ConcordiaJS/concordia-http)
