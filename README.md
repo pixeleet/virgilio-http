@@ -1,4 +1,5 @@
 # Concordia-http
+[![wercker status](https://app.wercker.com/status/95adf712cc6bc48d5a579875ff4c6529/s/master "wercker status")](https://app.wercker.com/project/bykey/95adf712cc6bc48d5a579875ff4c6529)
 [![NPM version](https://badge.fury.io/js/concordia-http.svg)](http://badge.fury.io/js/concordia-http)
 [![Gitter chat](https://badges.gitter.im/ConcordiaJS/concordia-http.png)](https://gitter.im/ConcordiaJS/concordia-http)
 
@@ -71,4 +72,6 @@ Restify's bundled middlewares are made available from `concordia.http`. It is
 advised extensions that add additional middlewares also store them there.
 
 ## More Tags
+[![Code Climate](https://codeclimate.com/github/ConcordiaJS/concordia-http/badges/gpa.svg)](https://codeclimate.com/github/ConcordiaJS/concordia-http)
+[![Test Coverage](https://codeclimate.com/github/ConcordiaJS/concordia-http/badges/coverage.svg)](https://codeclimate.com/github/ConcordiaJS/concordia-http)
 [![Dependency Status](https://gemnasium.com/ConcordiaJS/concordia-http.svg)](https://gemnasium.com/ConcordiaJS/concordia-http)
