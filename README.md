@@ -21,7 +21,7 @@ concordia.defineAction$('add', function(num1, num2) {
 Let's make this action available over HTTP:
 
 ```javascript
-concordia.foo.get('/add/:number1/:number2');
+concordia.add.get('/add/:number1/:number2');
 ```
 
 And that's it!
@@ -33,7 +33,7 @@ transform:
 
 ```javascript
 //This example requires the `bodyParser` middleware.
-concordia.foo.post('/add')
+concordia.add.post('/add')
     .transform(function(req, res) {
         var body = req.body;
         return this.execute$(body.number1, body.number2)
@@ -51,7 +51,7 @@ middleware.
 Now suppose you want to add some validation to this route. Easy:
 
 ```javascript
-concordia.foo.get('/add/:number1/:number2')
+concordia.add.get('/add/:number1/:number2')
     .addHandler(myValidationMiddleware(schema))
     .addHandler(myAuthenticationMiddleware())
     .transform();
