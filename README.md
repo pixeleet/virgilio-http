@@ -2,8 +2,6 @@
 [![NPM version](https://badge.fury.io/js/concordia-http.svg)](http://badge.fury.io/js/concordia-http)
 [![Gitter chat](https://badges.gitter.im/ConcordiaJS/concordia-http.png)](https://gitter.im/ConcordiaJS/concordia-http)
 
-NOTE: THIS IS STILL A WORK IN PROGRESS. NOT ALL FEATURES MIGHT WORK YET.
-
 A restify-based concordia-extension, for making actions available as HTTP-endpoints.
 Easily add http-endpoints to your concordia-actions. Based on the excellent
 [restify](http://mcavage.me/node-restify/).
