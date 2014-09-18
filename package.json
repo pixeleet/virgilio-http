@@ -26,7 +26,7 @@
     "underscore": "^1.7.0"
   },
   "devDependencies": {
-    "concordia": "^0.7.1",
+    "concordia": "0.8.1",
     "gulp": "^3.8.7",
     "gulp-docco": "0.0.4",
     "gulp-example-to-test": "^0.1.0",
