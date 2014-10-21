@@ -1,18 +1,18 @@
 var request = require('request');
-var Concordia = require('concordia');
-var concordia = new Concordia();
+var Virgilio = require('virgilio');
+var virgilio = new Virgilio();
 
-//Load concordia-http.
-var concordiaHttp = require('../');
-concordia.loadModule$(concordiaHttp);
+//Load virgilio-http.
+var virgilioHttp = require('../');
+virgilio.loadModule$(virgilioHttp);
 
 //Define an action.
-concordia.defineAction$('allcaps', function(word) {
+virgilio.defineAction$('allcaps', function(word) {
     return word.toUpperCase() + '!';
 });
 
 //Adding an endpoint with multiple handlers to an action.
-concordia.allcaps.get('/allcaps/:word')
+virgilio.allcaps.get('/allcaps/:word')
     .addHandler(function(req) {
         req.params.word += ' is';
     })
@@ -22,7 +22,7 @@ concordia.allcaps.get('/allcaps/:word')
     .transform();
 
 //Make a request to the endpoint.
-request.get('http://localhost:8080/allcaps/concordia',
+request.get('http://localhost:8080/allcaps/virgilio',
             function(error, response, body) {
-    console.log(body);    //=> '"CONCORDIA IS GREAT!"'
+    console.log(body);    //=> '"VIRGILIO IS GREAT!"'
 });

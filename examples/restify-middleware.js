@@ -1,26 +1,26 @@
 var request = require('request');
-var Concordia = require('concordia');
-var concordia = new Concordia();
+var Virgilio = require('virgilio');
+var virgilio = new Virgilio();
 
-//Load concordia-http.
-var concordiaHttp = require('../');
-concordia.loadModule$(concordiaHttp);
+//Load virgilio-http.
+var virgilioHttp = require('../');
+virgilio.loadModule$(virgilioHttp);
 
 //Register a restify middleware.
-concordia.http.use$(concordia.http.bodyParser());
+virgilio.http.use$(virgilio.http.bodyParser());
 
 //Define an action.
-concordia.defineAction$('allcaps', function(words) {
+virgilio.defineAction$('allcaps', function(words) {
     return words.join(' ').toUpperCase() + '!';
 });
 
 //Adding an endpoint to an action.
-concordia.allcaps.post('/allcaps');
+virgilio.allcaps.post('/allcaps');
 
 //Make a request to the endpoint.
-var words = [ 'concordia', 'is', 'great' ];
+var words = [ 'virgilio', 'is', 'great' ];
 request.post('http://localhost:8080/allcaps', { json: words },
             function(error, response, body) {
     console.log(response.statusCode);   //=> 200
-    console.log(body);                  //=> 'CONCORDIA IS GREAT!'
+    console.log(body);                  //=> 'VIRGILIO IS GREAT!'
 });

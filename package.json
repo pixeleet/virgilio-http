@@ -1,32 +1,32 @@
 {
-  "name": "concordia-http",
+  "name": "virgilio-http",
   "version": "0.7.0",
-  "description": "An http module for Concordia",
-  "main": "lib/concordia-http.js",
+  "description": "A binding for using restify with Virgilio.",
+  "main": "lib/virgilio-http.js",
   "scripts": {
     "test": "gulp test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/concordiajs/concordia-http.git"
+    "url": "git://github.com/icemobilelab/virgilio-http.git"
   },
-  "author": "Concordia",
+  "author": "IceMobile",
   "licenses": [
     {
       "type": "Apache-2.0",
-      "url": "http://github.com/concordiajs/concordia-http/raw/master/LICENSE"
+      "url": "http://github.com/icemobilelab/virgilio-http/raw/master/LICENSE"
     }
   ],
   "bugs": {
-    "url": "https://github.com/concordiajs/concordia-http/issues"
+    "url": "https://github.com/icemobilelab/virgilio-http/issues"
   },
-  "homepage": "https://github.com/concordiajs/concordia-http",
+  "homepage": "https://github.com/icemobilelab/virgilio-http",
   "dependencies": {
     "restify": "^2.8.2",
     "underscore": "^1.7.0"
   },
   "devDependencies": {
-    "concordia": "0.8.1",
+    "virgilio": "0.11.1",
     "gulp": "^3.8.7",
     "gulp-docco": "0.0.4",
     "gulp-example-to-test": "^0.1.0",

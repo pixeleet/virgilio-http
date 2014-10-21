@@ -1,18 +1,16 @@
-# Concordia-http
+# Virgilio-http
 [![wercker status](https://app.wercker.com/status/95adf712cc6bc48d5a579875ff4c6529/s/master "wercker status")](https://app.wercker.com/project/bykey/95adf712cc6bc48d5a579875ff4c6529)
-[![NPM version](https://badge.fury.io/js/concordia-http.svg)](http://badge.fury.io/js/concordia-http)
-[![Gitter chat](https://badges.gitter.im/ConcordiaJS/concordia-http.png)](https://gitter.im/ConcordiaJS/concordia-http)
+[![NPM version](https://badge.fury.io/js/virgilio-http.svg)](http://badge.fury.io/js/virgilio-http)
 
-A restify-based concordia-extension, for making actions available as HTTP-endpoints.
-Easily add http-endpoints to your concordia-actions. Based on the excellent
-[restify](http://mcavage.me/node-restify/).
+A binding to use [restify](http://mcavage.me/node-restify/) with virgilio, for making actions available as HTTP-endpoints.
+Easily add http-endpoints to your virgilio-actions.
 
 ## Usage
 
-Lets suppose we created a concordia action `allcaps`:
+Lets suppose we created a virgilio action `allcaps`:
 
 ```javascript
-concordia.defineAction$('allcaps', function(word) {
+virgilio.defineAction$('allcaps', function(word) {
     return word.toUpperCase() + '!';
 })
 ```
@@ -20,7 +18,7 @@ concordia.defineAction$('allcaps', function(word) {
 Let's make this action available over HTTP:
 
 ```javascript
-concordia.allcaps.get('/allcaps/concordia');
+virgilio.allcaps.get('/allcaps/virgilio');
 ```
 
 And that's it!
@@ -32,7 +30,7 @@ transform:
 
 ```javascript
 //This example requires the `bodyParser` middleware.
-concordia.add.post('/allcaps')
+virgilio.add.post('/allcaps')
     .transform(function(req, res) {
         var words = req.body;
         return this.execute$(words.join(' '))
@@ -50,7 +48,7 @@ middleware.
 Now suppose you want to add some validation to this route. Easy:
 
 ```javascript
-concordia.add.get('/allcaps/:words')
+virgilio.add.get('/allcaps/:words')
     .addHandler(myValidationMiddleware(schema))
     .addHandler(myAuthenticationMiddleware())
     .transform();
@@ -65,13 +63,13 @@ Of course, it's also possible to add generic middleware to be used with every
 route:
 
 ```javascript
-concordia.http.use(concordia.http.bodyParser());
+virgilio.http.use(virgilio.http.bodyParser());
 ```
 
-Restify's bundled middlewares are made available from `concordia.http`. It is
+Restify's bundled middlewares are made available from `virgilio.http`. It is
 advised extensions that add additional middlewares also store them there.
 
 ## More Tags
-[![Code Climate](https://codeclimate.com/github/ConcordiaJS/concordia-http/badges/gpa.svg)](https://codeclimate.com/github/ConcordiaJS/concordia-http)
-[![Test Coverage](https://codeclimate.com/github/ConcordiaJS/concordia-http/badges/coverage.svg)](https://codeclimate.com/github/ConcordiaJS/concordia-http)
-[![Dependency Status](https://gemnasium.com/ConcordiaJS/concordia-http.svg)](https://gemnasium.com/ConcordiaJS/concordia-http)
+[![Code Climate](https://codeclimate.com/github/icemobilelab/virgilio-http/badges/gpa.svg)](https://codeclimate.com/github/icemobilelab/virgilio-http)
+[![Test Coverage](https://codeclimate.com/github/icemobilelab/virgilio-http/badges/coverage.svg)](https://codeclimate.com/github/icemobilelab/virgilio-http)
+[![Dependency Status](https://gemnasium.com/icemobilelab/virgilio-http.svg)](https://gemnasium.com/icemobilelab/virgilio-http)

@@ -1,18 +1,18 @@
 var request = require('request');
-var Concordia = require('concordia');
-var concordia = new Concordia();
+var Virgilio = require('virgilio');
+var virgilio = new Virgilio();
 
-//Load concordia-http.
-var concordiaHttp = require('../');
-concordia.loadModule$(concordiaHttp);
+//Load virgilio-http.
+var virgilioHttp = require('../');
+virgilio.loadModule$(virgilioHttp);
 
 //Define an action.
-concordia.defineAction$('add', function(num1, num2) {
+virgilio.defineAction$('add', function(num1, num2) {
     return num1 + num2;
 });
 
 //Adding an endpoint with a transform to an action.
-concordia.add.get('/add/:num1/:num2')
+virgilio.add.get('/add/:num1/:num2')
     .transform(function(req, res) {
         var params = req.params;
         var num1 = parseInt(params.num1, 10);

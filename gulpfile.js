@@ -16,7 +16,7 @@ function onError(error) {
     process.exit(1);
 }
 
-var newConcordiaRegex = /^(.*Concordia\()(.*)(\).*)$/m;
+var newVirgilioRegex = /^(.*Virgilio\()(.*)(\).*)$/m;
 var exampleTestHeader = fs.readFileSync('./helpers/example-test-header.js');
 var exampleTestFooter = fs.readFileSync('./helpers/example-test-footer.js');
 
@@ -53,8 +53,8 @@ gulp.task('generate-example-tests', function() {
         .pipe(exampleToTest())
         .pipe(insert.prepend(exampleTestHeader))
         .pipe(insert.append(exampleTestFooter))
-        .pipe(replace(/Concordia\(\)/, 'Concordia({})'))
-        .pipe(replace(newConcordiaRegex, '$1_.extend(loggerConfig, $2)$3'))
+        .pipe(replace(/Virgilio\(\)/, 'Virgilio({})'))
+        .pipe(replace(newVirgilioRegex, '$1_.extend(loggerConfig, $2)$3'))
         .on('error', onError)
         .pipe(gulp.dest('./example-tests'));
 });
@@ -87,7 +87,7 @@ gulp.task('report-istanbul', function() {
 
 //Annotated Sourcecode
 gulp.task('docs', 'Build the documentation', function () {
-    gulp.src(['lib/concordia-http.js'])
+    gulp.src(['lib/virgilio-http.js'])
         .pipe(docco())
         .pipe(gulp.dest('./docs'));
 });
