@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/icemobilelab/virgilio-http",
   "dependencies": {
-    "restify": "^4.3.0"
+    "restify": "^5.0.1"
   },
   "devDependencies": {
     "gulp": "^3.8.7",
